@@ -1,0 +1,24 @@
+{
+  "name": "mw-jukebox",
+  "version": "0.1.0",
+  "scripts": {
+    "vue-dev": "vite",
+    "vue-check-prod": "serve ./dist/",
+    "vue-build": "vue-tsc --noEmit && vite build",
+    "vue-watch": "vite build --watch",
+    "vue-test": "vitest",
+    "vue-test:run": "vitest run"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^28.1.0",
+    "stylus": "^0.64.0",
+    "typescript": "^5.9.3",
+    "vite": "^6.0.5",
+    "vitest": "^4.0.18",
+    "vue": "^3.5.28",
+    "vue-tsc": "^3.2.4",
+    "serve": "^14.2.5"
+  }
+}
