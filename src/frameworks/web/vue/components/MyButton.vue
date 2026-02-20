@@ -3,12 +3,12 @@
 	<input type="text" v-model="message" />
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script setup lang="ts">
+import { ref, type Ref } from 'vue';
 
-const message = ref('Click me');
+const message: Ref<string> = ref('Click me');
 
-const click = () => {
+const click: () => void = () => {
 	message.value = 'Clicked';
 };
 </script>

@@ -1,7 +1,29 @@
 node_modules/
-.DS_Store
-.vscode/
-*.local
+dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+
+# Build & cache
+*.tsbuildinfo
+coverage/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local overrides
+*.local

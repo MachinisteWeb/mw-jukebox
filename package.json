@@ -1,24 +1,41 @@
 {
   "name": "mw-jukebox",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
-    "vue-dev": "vite",
-    "vue-check-prod": "serve ./dist/",
-    "vue-build": "vue-tsc --noEmit && vite build",
-    "vue-watch": "vite build --watch",
-    "vue-test": "vitest",
-    "vue-test:run": "vitest run"
+    "vue-dev": "vite --config src/frameworks/web/vue/vite.config.ts",
+    "vue-prod": "serve ./dist/vue/",
+    "vue-build": "vue-tsc --noEmit && vite build --config src/frameworks/web/vue/vite.config.ts",
+    "vue-watch": "vite build --watch --config src/frameworks/web/vue/vite.config.ts",
+    "vue-test": "vitest --config src/frameworks/web/vue/vite.config.ts",
+    "vue-test:run": "vitest run --config src/frameworks/web/vue/vite.config.ts",
+    "react-dev": "vite --config src/frameworks/web/react/vite.config.ts",
+    "react-prod": "serve ./dist/react/",
+    "react-build": "tsc --noEmit -p src/frameworks/web/react/tsconfig.json && vite build --config src/frameworks/web/react/vite.config.ts",
+    "react-watch": "vite build --watch --config src/frameworks/web/react/vite.config.ts",
+    "react-test": "vitest --config src/frameworks/web/react/vite.config.ts",
+    "react-test:run": "vitest run --config src/frameworks/web/react/vite.config.ts"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.3.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/test-utils": "^2.4.6",
     "jsdom": "^28.1.0",
+    "serve": "^14.2.5",
     "stylus": "^0.64.0",
     "typescript": "^5.9.3",
     "vite": "^6.0.5",
     "vitest": "^4.0.18",
     "vue": "^3.5.28",
-    "vue-tsc": "^3.2.4",
-    "serve": "^14.2.5"
+    "vue-tsc": "^3.2.4"
   }
 }

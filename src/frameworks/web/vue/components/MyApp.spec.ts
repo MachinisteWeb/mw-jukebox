@@ -1,7 +1,6 @@
-// src/MyApp.spec.ts
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import MyApp from './MyApp.vue';
+import MyApp from '@webvue/components/MyApp.vue';
 
 describe('MyApp', () => {
   it('affiche le bon message et contient le titre', () => {

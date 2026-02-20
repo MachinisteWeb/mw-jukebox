@@ -1,7 +1,6 @@
-// src/MyButton.spec.ts
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import MyButton from './MyButton.vue';
+import MyButton from '@webvue/components/MyButton.vue';
 
 describe('MyButton', () => {
   

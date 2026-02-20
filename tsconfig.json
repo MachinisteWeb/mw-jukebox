@@ -1,11 +1,20 @@
 {
-    "compilerOptions": {
-      "target": "ESNext",
-      "module": "ESNext",
-      "moduleResolution": "bundler",
-      "noEmit": true,
-      "skipLibCheck": true,
-      "lib": ["ESNext", "DOM"]
-    },
-    "include": ["src/**/*.ts", "src/**/*.vue"]
-  }
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "lib": ["ESNext", "DOM"],
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@webvue/*": ["src/frameworks/web/vue/*"],
+      "@webreact/*": ["src/frameworks/web/react/*"],
+      "@core/*":["src/*"],
+      "@assets/*":["src/assets/*"],
+      "@frameworks/*":["src/frameworks/*"],
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+}

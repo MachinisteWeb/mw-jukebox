@@ -1,77 +1,53 @@
-# Vue Jukebox PoC - Architecture "Zero Build Future"
+# Jukebox PoC - Architecture Clean avec Vue & React
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
+![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)
 
 *[🇬🇧 Read this document in English](./README.md)*
 
-Ce projet est une preuve de concept (PoC) visant à produire une application Vue.js pérenne et standard.
+Ce projet construit **deux sites identiques** : l'un sous Vue, l'autre sous React. L'objectif est de valider une approche **Architecture Clean**.
 
-L'objectif central est de générer un dossier `dist/` autonome : composé de modules ES standards (`.mjs`) et de CSS natif. Ce dossier final doit pouvoir fonctionner directement dans un navigateur moderne sans serveur complexe, et rester maintenable (éditable à la main) même si l'on décide un jour de supprimer tout l'outillage de build (dossier `src`).
+## Pourquoi deux interfaces ?
+
+Avoir deux UIs est le meilleur moyen de :
+
+1. **Identifier ce qui doit être dans le CORE** — Si un morceau de code doit être dupliqué pour supporter Vue et React, il n'appartient pas à la couche UI. Il appartient au cœur (domain, application, adapters). La contrainte des deux interfaces impose une séparation claire des responsabilités.
+
+2. **Prouver la parité d'implémentation** — Les mêmes fonctionnalités, le même comportement, sous deux technologies différentes. Cela valide que l'architecture est indépendante du framework et que la logique métier vit là où elle doit.
 
 ## 📂 Structure du projet
 
-- `src/` : L'espace de travail développeur (Vue 3, TypeScript, Stylus).
-- `dist/` : Le produit fini. C'est le point de vérité pour la production. Il contient du code standardisé prêt à être servi par n'importe quel serveur statique.
+- `src/frameworks/web/vue/` : Interface Vue 3 (TypeScript, Stylus).
+- `src/frameworks/web/react/` : Interface React (TypeScript, Stylus).
+- `src/` (core) : Domain, logique applicative, adapters — partagés par les deux UIs.
+- `dist/vue/` et `dist/react/` : Builds de production pour chaque interface.
 
 ## 🚀 Workflows de développement
 
-Ce projet supporte trois méthodes de travail selon tes besoins :
-
-### 1. Mode Développement Rapide (HMR)
-
-Pour coder vite avec mise à jour instantanée (Hot Module Replacement). Tout se passe en mémoire RAM.
+### Vue
 
 ```bash
-npm run vue-dev
-# npx vite
+npm run vue-dev      # Serveur de dev (http://localhost:5173)
+npm run vue-build    # Build → dist/vue/
+npm run vue-prod     # Servir dist/vue/
+npm run vue-test:run # Lancer les tests
 ```
 
-- **URL** : http://localhost:5173
-- **Note** : Ne met pas à jour le dossier `dist/` sur le disque.
-
-### 2. Mode "Production Watch" (Hybride)
-
-C'est le mode spécifique à ce PoC. Il permet de travailler sur la version réelle qui partira en production, tout en ayant une compilation automatique.
-
-Il faut lancer deux terminaux :
-
-**Terminal A (Le constructeur)** : Compile les changements de `src` vers `dist` en temps réel.
+### React
 
 ```bash
-npm run vue-watch
-# npx vite build --watch
+npm run react-dev      # Serveur de dev (http://localhost:5174)
+npm run react-build    # Build → dist/react/
+npm run react-prod     # Servir dist/react/
+npm run react-test:run # Lancer les tests
 ```
 
-**Terminal B (Le serveur)** : Sert uniquement le dossier `dist/` (comme un serveur de prod).
+### Mode watch (les deux)
 
 ```bash
-npm run vue-check-prod
-# npx serve ./dist/
+npm run vue-watch   # Build Vue à chaque modification
+npm run react-watch # Build React à chaque modification
 ```
 
-- **URL** : http://localhost:3000
-- **Avantage** : Tu testes exactement ce qui sera livré (pas de magie de dev server).
+## 🛠️ Philosophie
 
-### 3. Build Final & Vérification
-
-Pour générer la version finale, nettoyer le code et vérifier la sécurité des types (TypeScript).
-
-```bash
-npm run vue-build
-# vue-tsc --noEmit && vite build
-```
-
-Cette commande exécute séquentiellement :
-
-1. `vue-tsc` : Vérifie qu'il n'y a aucune erreur de type dans ton code.
-2. `vite build` : Génère les fichiers optimisés dans `dist/`.
-
-## 🛠️ Philosophie "Zero Build Output"
-
-Contrairement aux SPA classiques qui génèrent un gros "bundle" illisible, ce projet est configuré pour produire des fichiers séparés et intelligibles.
-
-Si demain nous supprimons le dossier `src` et `node_modules` :
-
-- Le dossier `dist/` continue de fonctionner seul.
-- Il est possible d'éditer `common.css` ou les fichiers `.mjs` directement avec un éditeur de texte standard.
-- L'application reste compatible nativement avec les navigateurs modernes (ES Modules).
+Le projet vise à produire des dossiers `dist/` autonomes avec des modules ES standards et du CSS, utilisables dans tout navigateur moderne sans outillage complexe. L'approche dual-UI garantit que la logique partagée reste dans le cœur et que les deux interfaces restent maintenables et alignées.

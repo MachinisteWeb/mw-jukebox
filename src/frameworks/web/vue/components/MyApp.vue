@@ -5,12 +5,12 @@
 	</div>
 </template>
 
-<script setup>
-import MyButton from './MyButton.vue';
-import { ref } from 'vue';
+<script setup lang="ts">
+import MyButton from '@webvue/components/MyButton.vue';
+import { ref, type Ref } from 'vue';
 
-const msg = 'Hello World !';
-const message = ref(msg);
+const msg: string = 'Hello World !';
+const message: Ref<string> = ref(msg);
 </script>
 
 <style lang="stylus">
