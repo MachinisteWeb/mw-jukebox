@@ -1,6 +1,6 @@
 # Jukebox PoC - Clean Architecture avec Vue & React
 
-![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)
+![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)
 
 *[🇫🇷 Lire la documentation en Français](./README.fr.md)*
 
@@ -21,31 +21,39 @@ Having two UIs is the best way to :
 - `src/` (core) : Domain, application logic, adapters — shared by both UIs.
 - `dist/vue/` and `dist/react/` : Production builds for each interface.
 
+## 📦 Installation
+
+> **pnpm only** — This project uses `pnpm` exclusively (since v0.3.0). Do not use `npm` or `yarn`.
+
+```bash
+pnpm install
+```
+
 ## 🚀 Development workflows
 
 ### Vue
 
 ```bash
-npm run vue-dev      # Dev server (http://localhost:5173)
-npm run vue-build    # Build → dist/vue/
-npm run vue-prod     # Serve dist/vue/
-npm run vue-test:run # Run tests
+pnpm run vue-dev      # Dev server (http://localhost:5173)
+pnpm run vue-build    # Build → dist/vue/
+pnpm run vue-prod     # Serve dist/vue/
+pnpm run vue-test:run # Run tests
 ```
 
 ### React
 
 ```bash
-npm run react-dev      # Dev server (http://localhost:5174)
-npm run react-build    # Build → dist/react/
-npm run react-prod     # Serve dist/react/
-npm run react-test:run # Run tests
+pnpm run react-dev      # Dev server (http://localhost:5174)
+pnpm run react-build    # Build → dist/react/
+pnpm run react-prod     # Serve dist/react/
+pnpm run react-test:run # Run tests
 ```
 
 ### Watch mode (both)
 
 ```bash
-npm run vue-watch   # Build Vue on file change
-npm run react-watch # Build React on file change
+pnpm run vue-watch   # Build Vue on file change
+pnpm run react-watch # Build React on file change
 ```
 
 ## 🛠️ Philosophy

@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-03-03
+
+### Changed
+
+- **pnpm only**: The project now uses `pnpm` exclusively. `npm` and `yarn` are no longer supported.
+- Added `packageManager` field in root `package.json` for Corepack.
+- Documentation: Installation section added to README and README.fr.
+- Cursor rules: created `.cursor/rules/` (global rules + Vue + React ecosystems).
+
+---
+
 ## [0.2.0] - 2026-02-20
 
 ### Added

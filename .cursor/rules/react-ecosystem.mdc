@@ -1,0 +1,30 @@
+---
+description: Conventions React — mw-jukebox
+globs: src/frameworks/web/react/**/*
+alwaysApply: false
+---
+
+# Écosystème React — mw-jukebox
+
+## Contexte
+
+- **Package** : `@mw-jukebox/web-react`
+- **Stack** : React 18 + Vite + TypeScript + Stylus
+- **Chemin** : `src/frameworks/web/react/`
+
+## Règles
+
+1. **Composants fonctionnels** — Pas de classes. Hooks uniquement.
+2. **Typage** — Props typées avec `type` ou `interface`. Pas de `any`.
+3. **Styles** — Stylus (`.styl`). Pas de CSS-in-JS ou Tailwind sauf décision explicite.
+4. **Tests** — Vitest + `@testing-library/react`. Fichiers `*.spec.tsx` à côté des composants.
+5. **Imports du cœur** — Importer uniquement via `interface-adapters` ou `use-cases`, jamais l'inverse.
+
+## Commandes
+
+```bash
+pnpm run react-dev       # Dev
+pnpm run react-build     # Build → dist/react/
+pnpm run react-test:run  # Tests
+pnpm --filter @mw-jukebox/web-react add [paquet]  # Dépendance
+```

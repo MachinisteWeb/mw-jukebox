@@ -1,0 +1,30 @@
+---
+description: Conventions Vue 3 — mw-jukebox
+globs: src/frameworks/web/vue/**/*
+alwaysApply: false
+---
+
+# Écosystème Vue — mw-jukebox
+
+## Contexte
+
+- **Package** : `@mw-jukebox/web-vue`
+- **Stack** : Vue 3 + Vite + TypeScript + Stylus
+- **Chemin** : `src/frameworks/web/vue/`
+
+## Règles
+
+1. **Composition API** — Utiliser `<script setup>` et Composition API.
+2. **Typage** — Typer les props et emits avec `defineProps<>()` et `defineEmits<>()`.
+3. **Styles** — Stylus (`lang="stylus"`). Pas de CSS-in-JS ou Tailwind sauf décision explicite.
+4. **Tests** — Vitest + `@vue/test-utils`. Fichiers `*.spec.ts` à côté des composants.
+5. **Imports du cœur** — Importer uniquement via `interface-adapters` ou `use-cases`, jamais l'inverse.
+
+## Commandes
+
+```bash
+pnpm run vue-dev       # Dev
+pnpm run vue-build     # Build → dist/vue/
+pnpm run vue-test:run  # Tests
+pnpm --filter @mw-jukebox/web-vue add [paquet]  # Dépendance
+```

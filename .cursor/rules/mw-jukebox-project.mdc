@@ -1,0 +1,107 @@
+---
+description: Règles globales mw-jukebox - pnpm, Clean Architecture, arborescence
+alwaysApply: true
+---
+
+# mw-jukebox - Guide pour l'IA (Cursor)
+
+> **Objectif** : Fournir le contexte architectural et les règles strictes pour l'assistant IA.
+
+---
+
+## 🚫 RÈGLES CRITIQUES (NE JAMAIS ENFREINDRE)
+
+1. **N'utilise jamais `npm` ou `yarn`** — Utilise TOUJOURS `pnpm`. Le projet est pnpm-only depuis la v0.3.0.
+2. **Ne crée pas de dossier `packages/shared`** — Le code partagé (types, logique) va dans `src/entites/` ou `src/use-cases/`.
+3. **Respecte la Clean Architecture** — La règle de dépendance va vers l'intérieur : `frameworks` → `interface-adapters` → `use-cases` → `entites`.
+4. **Pas d'imports de frameworks dans le cœur** — Le code dans `entites` et `use-cases` NE DOIT JAMAIS importer de code provenant de `frameworks` (ni React, ni Vue, ni Vite, ni BDD). Pur TypeScript agnostique.
+5. **N'invente pas de dossiers** — Réfère-toi strictement à l'arborescence définie ci-dessous.
+
+---
+
+## 🏗️ ARBORESCENCE DU MONOREPO
+
+Workspaces pnpm (`pnpm-workspace.yaml`) :
+
+```text
+mw-jukebox/
+├── src/                          # Cœur applicatif (Pur TypeScript)
+│   ├── entites/                  # Objets métiers purs et types
+│   ├── use-cases/                # Logique applicative (règles métier)
+│   ├── interface-adapters/       # Contrôleurs, Présentateurs
+│   ├── assets/                   # Assets statiques partagés
+│   └── frameworks/
+│       ├── web/
+│       │   ├── vue/              # @mw-jukebox/web-vue (Vite + TS + Stylus)
+│       │   └── react/            # @mw-jukebox/web-react (Vite + TS + Stylus)
+│       ├── db/                   # Base de données (à venir)
+│       └── server/               # Serveur / API (à venir)
+```
+
+---
+
+## 💻 STACK TECHNIQUE
+
+| Élément | Choix |
+|---------|-------|
+| Gestionnaire de paquets | **pnpm** (workspaces) |
+| Langage | TypeScript strict partout |
+| Frontend | Vue 3 et React (Vite + Stylus) |
+| Typage | Préférer `type` plutôt que `interface`. Pas de `any` (utiliser `unknown`). |
+
+---
+
+## 🛠️ COMMANDES PNPM ESSENTIELLES
+
+```bash
+# Racine : lancer les serveurs de dev
+pnpm run vue-dev      # Vue → http://localhost:5173
+pnpm run react-dev    # React → http://localhost:5174
+
+# Ajouter une dépendance dans un workspace
+pnpm --filter @mw-jukebox/web-vue add [paquet]
+pnpm --filter @mw-jukebox/web-react add [paquet]
+
+# Dépendance à la racine (workspace root)
+pnpm add -w [paquet]
+```
+
+---
+
+## 🧠 ARBRE DE DÉCISION — Où placer le code ?
+
+```
+S'agit-il d'une règle métier ou d'un objet fondamental ?
+├── OUI → src/entites/ (donnée pure) ou src/use-cases/ (action/logique)
+└── NON → Élément d'interface utilisateur ?
+          ├── React → src/frameworks/web/react/
+          ├── Vue   → src/frameworks/web/vue/
+          └── NON → Connecter l'UI aux use-cases ?
+                    └── OUI → src/interface-adapters/
+```
+
+---
+
+## 📋 PROCÉDURE — Augmenter la version du projet
+
+Lors d'un bump de version, mettre à jour **tous** les fichiers suivants dans l'ordre :
+
+| # | Fichier | Action |
+|---|---------|--------|
+| 1 | `package.json` (racine) | `"version": "X.Y.Z"` |
+| 2 | `src/frameworks/web/vue/package.json` | `"version": "X.Y.Z"` |
+| 3 | `src/frameworks/web/react/package.json` | `"version": "X.Y.Z"` |
+| 4 | `README.md` | Badge `version-X.Y.Z` + mentions éventuelles |
+| 5 | `README.fr.md` | Badge `version-X.Y.Z` + mentions éventuelles |
+| 6 | `CHANGELOG.md` | Nouvelle section `## [X.Y.Z] - YYYY-MM-DD` avec les changements (en anglais) |
+| 7 | `.cursor/rules/mw-jukebox-project.mdc` | Références à la version courante (ex. "depuis la v0.3.0") |
+
+**Ne jamais oublier** : le CHANGELOG et les README sont des sources de vérité au même titre que les `package.json`. README.md en anglais, README.fr.md en français, CHANGELOG en anglais.
+
+---
+
+## 🤖 INSTRUCTIONS POUR L'ASSISTANT
+
+- **Soyez concis** : Pas de code inutile.
+- **Commentaires** : Uniquement sur la logique métier complexe (use-cases).
+- **Erreurs pnpm** : Si "Ignored build scripts", suggérer `pnpm approve-builds` plutôt que modifier les configs.
